@@ -1,219 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <title>IBIN &#8211; Indian Bio-resource Information Network</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#75b325" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.17.1/ol.css" />
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">  
-  <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/responsive.css">
-  <link rel="stylesheet" href="css/font-awesome.css">
-  <link rel="stylesheet" href="css/menubar.css">
-  <link rel="stylesheet" href="css/wow.css">
-  
-  
-  <script src="js/jquery.min3.4.0.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/menu_script.js"></script>
-  <script src="js/owl.carousel.js"></script>
-  <script src="js/custome.js"></script>
-  <script src="js/wow.js"></script>
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.17.1/ol.js"></script>
+  <title>A Leaflet map!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css">
+	<link rel="stylesheet" href="css/jquerymobile1.4.5min.css">
 
-<!-- headers -->
-
-	<link rel="preload" href="wp-content/uploads/sites/51/cache/fvm/1590068663/out/header-a26a76bf158c016d953d2733583794582ab3b985.min.js" as="script">
-	<link rel="preload" href="wp-content/uploads/sites/51/cache/fvm/1590068663/out/header-c25761785b6dad67c3f917ff0940a81543d96358.min.css" as="style">
-	<script type='text/javascript' src='wp-content/uploads/sites/51/cache/fvm/1590068663/out/header-a26a76bf158c016d953d2733583794582ab3b985.min.js'></script>
-<!-- headers -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script type="text/javascript" src="js/script.js"></script>
-
-   <style>
-.col-md-12
-{
-  width:100%;
-}
-	  
-a:hover {
-   cursor: pointer;
-   background-color:none;
-}
-button#Filter {
-    padding: 5px 30px;
-    background: #586e75;
-    border: #485c61 1px solid;
-    color: #FFF;
-    border-radius: 2px;
-    cursor: pointer;
-    margin-left: 20px;
-    margin-bottom: 5px;
-}
-
-    </style>
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js"></script>
+	<script src="L.TileLayer.BetterWMS.js"></script>
   <style>
-
-     ul,#myUL {
-  list-style-type: none;
-  margin-left:15px;
-}
-
-/* Remove margins and padding from the parent ul */
-#myUL {
-  margin: 0;
-  padding: 0;
-}
-
-/* Style the caret/arrow */
-.caret {
-  cursor: pointer; 
-  user-select: none; /* Prevent text selection */
-}
-
-/* Create the caret/arrow with a unicode, and style it */
-.caret::before {
-  content: "\25B6";
-  color: greenyellow;
-  display: inline-block;
-  margin-right: 6px;
-}
-
-/* Rotate the caret/arrow icon when clicked on (using JavaScript) */
-.caret-down::before {
-  transform: rotate(90deg); 
-}
-
-/* Hide the nested list */
-.nested {
-  display: none;
-}
-
-/* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
-.active {
-  display: block;
-}
-/* scrollbar style */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  border-radius: 8px;
-}
- 
-/* Thumb */
-::-webkit-scrollbar-thumb {
-  border-radius: 8px;
-  box-shadow: inset 0 0 5px grey;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background:#75b324; 
-  box-shadow: inset 0 0 5px #75b324;
-}
+    #map{ height: 80% }
   </style>
-  	<link rel='stylesheet' id='fvm-header-0-css' href='wp-content/uploads/sites/51/cache/fvm/1590068663/out/header-c25761785b6dad67c3f917ff0940a81543d96358.min.css' type='text/css' media='all' />
-	<link rel="preload" href="wp-content/uploads/sites/51/cache/fvm/1590068663/out/header-a26a76bf158c016d953d2733583794582ab3b985.min.js" as="script">
-	<link rel="preload" href="wp-content/uploads/sites/51/cache/fvm/1590068663/out/header-c25761785b6dad67c3f917ff0940a81543d96358.min.css" as="style">
 </head>
+<body>
 
-<body class="body_dark">
+  <div id="map"></div>
+<div data-role="page" style="position:relative;">
+  <div data-role="header">
+    <h1>Species Selector</h1>
+  </div>
 
-<header>
-  <div class="header_top">
-    <div class="container">
-      <div class="top_header_bar">
-        <div class="row">
-          <div class="col-md-5 col-sm-5">
-		  <a href="index-2.html">
-                            <img class="logo span3 wow bounceInDown center" src="img/logo.png" style="height:45px;width:130px;align:right;">
-                        </a>
-            <ul class="top_ul" style="float:right">
-			
-              <li><a href="tel:135 2524123"><i class="fa fa-phone"></i> <span>135-2524123</span></a></li>  
-              <li><a href="mailto:support@ibin.com"><i class="fa fa-envelope"></i> <span>ibin@iirs.gov.in</span></a></li>  
-			  
-            </ul>
-          </div>
-          <div class="col-md-7 col-sm-7">
-            
-          <!--  <ul class="top_media">
-              <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-              <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-              <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
-              <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-            </ul>-->
-            <div class="top_search">
-              <form>
-                <input type="text" placeholder="search">
-                <button type="submit" class="btn-search fa fa-search"></button>
-              </form>
-            </div>
-          </div>
-        </div>
-        
+  <div data-role="main" class="ui-content">
+    <form method="post">
+      <div data-role="rangeslider">
+        <label for="price-min">Minimum Species:</label>
+        <input type="range" name="price-min" id="price-min" value="100" min="0" max="500">
+        <label for="price-max">Maximum Species:</label>
+        <input type="range" name="price-max" id="price-max" value="400" min="0" max="500">
       </div>
-    </div>
+        <input type="submit" data-inline="true" id="sub" value="Submit" onclick="myfunc()">
+      </form>
   </div>
+</div> 
 
-</header>
+  <script>
+  var x;
+  var y;
+  var st;
+  function myfunc(){
+  var min = document.getElementById("price-min").value; 
+x=min;  
+	var max = document.getElementById("price-max").value;
+	y=max;
+	alert (x+","+y);
+	st='min:'+x+';max:'+y;
+	alert (st)
+  load();
+   // $.ajax({
+  // url: 'richness.php',
+  // type: 'get',
+  // crossDomain: true,
+  // data: {min:min, max:max},
+  // success: function (response) {
+   // alert(response);
+   // //check(response);
+   // jsneagle= JSON.parse(response);
+   // lyertst= L.geoJSON(jsneagle).addTo(map);
+  // }
+  // });
+};  
+  
+  // initialize the map
+  var map = L.map('map').setView([20.5937, 78.9629], 4);
 
+  // load a tile layer
+  L.tileLayer(
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {
+      minZoom: 2,
+      maxZoom: 19,
+      id: "osm.streets"
+    }
+  ).addTo(map);
+  //vector layer
+  species = L.tileLayer.betterWms('http://localhost:8080/geoserver/cite/wms', {
+        layers: 'cite:fsi_new',
+        transparent: true,
+        format: 'image/png',
+		viewparams: st
+      });
+	  species.addTo(map);
 
-  <div class="fluid-container" style="background-color:black">
- 
-   <div class="col-md-12 m-2" style="border: 1px solid #424242; background-color:#292b2a;">
-   <h4 align="center" style="padding-top:10px; font-size:30px; color:white"><b>Mobile Apps</b> </h4>
-   </div>
-   <div class="row" style="padding-left:17%">
-<div class="col-md-3 m-2" style="border: 1px solid #424242; background-color:#292b2a;height:550px;"><br>
-<img src="img/fire.png" style="height:60%;width:100%; padding-left:20%;padding-right:20%;"></img><br><br>
-<h3 style="color:#75b324" align="center">Species Loss</h3>
-<p>Species lost in activities like Forest fire</p>
-</div>
-<div class="col-md-3 m-2" style="border: 1px solid #424242; background-color:#292b2a;height:550px;"><br>
-<img src="img/mobile2.png" style="height:60%;width:100%; padding:3%"></img><br><br>
-<h3 style="color:#75b324" align="center">Species Watch</h3>
-</div>
-<div class="col-md-3 m-2" style="border: 1px solid #424242; background-color:#292b2a;height:550px;"><br>
-<img src="img/butterfly.png" style="height:60%; padding-left:20%"></img><br><br>
-<h3 style="color:#75b324" align="center">Butterfly Identification</h3>
-</div>
-</div>
-<footer>
-  <div class="container">
-    
-     <ul class="f_media_bg_ul">
-          <li><a target="_blank" href="#"><i class="fa fa-facebook"></i></a></li>
-          <li><a target="_blank" href="#"><i class="fa fa-twitter"></i></a></li>
-          <li><a target="_blank" href="#"><i class="fa fa-linkedin"></i></a></li>
-          <li><a target="_blank" href="#"><i class="fa fa-paper-plane"></i></a></li>
-          <li><a target="_blank" href="#"><i class="fa fa-instagram"></i></a></li>
-      </ul>
-    </div>
-  <div class="footer_payment">
-    <p>Copyright &copy; 2020, IBIN. All rights reserved. </p>
-</div>
-</footer>
-
-<!--loader-->
-<div class="loader-container">
-  <div class="loader-logo">
-    <div class="loader-circle"></div>
-  </div>
-</div>
-<!--loader-->
-
-<a href="javascript:" id="return-to-top"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
-
+function load(){
+	map.removeLayer(species)
+	L.tileLayer.betterWms('http://localhost:8080/geoserver/cite/wms', {
+        layers: 'cite:rich',
+        transparent: true,
+        format: 'image/png',
+		viewparams: st
+      }).addTo(map);
+}
+  </script>
 </body>
-
 </html>
